@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEARN:U — 누구나, 어디서나, 무엇이든 배운다</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Serif+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FAF7F2;
+    --ink: #0E1116;
+    --ink-soft: #4A4F58;
+    --line: #E6E1D8;
+    --accent: #FF4D2E;
+    --accent-deep: #C8341B;
+    --gold: #D4A24C;
+    --card: #FFFFFF;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(14,17,22,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  .serif{font-family:'Noto Serif KR',serif}
+
+  /* ===== NAV ===== */
+  nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:saturate(180%) blur(12px);
+    background:rgba(250,247,242,.85);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{max-width:1280px;margin:0 auto;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+  .logo{font-family:'Noto Serif KR',serif;font-weight:900;font-size:24px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+  .logo-dot{width:10px;height:10px;background:var(--accent);border-radius:50%;display:inline-block}
+  .nav-links{display:flex;gap:28px;font-size:14px;font-weight:500;color:var(--ink-soft)}
+  .nav-links a{transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{display:flex;gap:10px;align-items:center}
+  .btn{padding:10px 18px;border-radius:999px;font-size:13px;font-weight:600;transition:all .2s;border:1px solid transparent}
+  .btn-ghost{border-color:var(--line)}
+  .btn-ghost:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn-solid{background:var(--ink);color:#fff}
+  .btn-solid:hover{background:var(--accent)}
+
+  /* ===== HERO ===== */
+  .hero{max-width:1280px;margin:0 auto;padding:80px 32px 60px;position:relative}
+  .hero-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--line);border-radius:999px;font-size:12px;font-weight:500;color:var(--ink-soft);margin-bottom:28px}
+  .hero-tag .pulse{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 1.8s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
+  .hero h1{font-family:'Noto Serif KR',serif;font-weight:400;font-size:clamp(48px,7vw,96px);line-height:1.02;letter-spacing:-.035em;margin-bottom:24px}
+  .hero h1 em{color:var(--accent);font-weight:500}
+  .hero h1 .underline{position:relative;display:inline-block}
+  .hero h1 .underline::after{content:"";position:absolute;left:0;right:0;bottom:8px;height:6px;background:var(--gold);opacity:.4;z-index:-1}
+  .hero-sub{font-size:18px;color:var(--ink-soft);max-width:560px;line-height:1.6;margin-bottom:40px}
+
+  /* Search */
+  .search{display:flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px;max-width:620px;box-shadow:var(--shadow);align-items:center}
+  .search input{flex:1;border:none;outline:none;padding:14px 20px;font-size:15px;font-family:inherit;background:transparent;color:var(--ink)}
+  .search input::placeholder{color:#A8A39A}
+  .search button{background:var(--ink);color:#fff;padding:14px 28px;border-radius:999px;font-weight:600;font-size:14px;transition:background .2s}
+  .search button:hover{background:var(--accent)}
+
+  /* Hero side mark */
+  .hero-side{position:absolute;top:80px;right:32px;text-align:right;font-size:11px;letter-spacing:.2em;color:var(--ink-soft);text-transform:uppercase;line-height:1.8}
+  .hero-side .num{font-family:'Noto Serif KR',serif;font-size:56px;font-weight:300;display:block;color:var(--ink);letter-spacing:-.02em;line-height:1}
+
+  /* ===== STATS ===== */
+  .stats{max-width:1280px;margin:60px auto 0;padding:48px 32px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+  .stat .num{font-family:'Noto Serif KR',serif;font-weight:500;font-size:48px;letter-spacing:-.03em;line-height:1}
+  .stat .label{font-size:13px;color:var(--ink-soft);margin-top:8px;font-weight:500}
+
+  /* ===== CATEGORIES ===== */
+  section{max-width:1280px;margin:0 auto;padding:80px 32px}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;gap:24px}
+  .sec-head h2{font-family:'Noto Serif KR',serif;font-weight:400;font-size:42px;letter-spacing:-.025em;line-height:1.1}
+  .sec-head h2 em{color:var(--accent)}
+  .sec-head p{color:var(--ink-soft);font-size:14px;max-width:380px}
+  .cats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+  .cat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 16px;text-align:center;transition:all .25s;cursor:pointer}
+  .cat:hover{border-color:var(--ink);transform:translateY(-4px)}
+  .cat-ico{font-size:28px;margin-bottom:10px;display:block}
+  .cat-name{font-size:13px;font-weight:600}
+  .cat-count{font-size:11px;color:var(--ink-soft);margin-top:4px}
+
+  /* ===== COURSES ===== */
+  .courses{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .course{background:var(--card);border-radius:18px;overflow:hidden;border:1px solid var(--line);transition:all .3s;cursor:pointer}
+  .course:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .course-img{aspect-ratio:16/10;background:linear-gradient(135deg,#E8DDC9,#D4A24C);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:20px}
+  .course-img.b{background:linear-gradient(135deg,#0E1116,#4A4F58)}
+  .course-img.c{background:linear-gradient(135deg,#FF4D2E,#C8341B)}
+  .course-img.d{background:linear-gradient(135deg,#5B7B7A,#2C4A4A)}
+  .course-img.e{background:linear-gradient(135deg,#F5E6D3,#D4A24C)}
+  .course-img.f{background:linear-gradient(135deg,#2D3142,#4F5D75)}
+  .course-img .badge{background:rgba(255,255,255,.95);color:var(--ink);font-size:11px;font-weight:600;padding:5px 10px;border-radius:6px}
+  .course-img .pattern{position:absolute;inset:0;opacity:.15;background-image:radial-gradient(circle at 20% 30%,#fff 1px,transparent 1px),radial-gradient(circle at 70% 60%,#fff 1px,transparent 1px);background-size:30px 30px}
+  .course-body{padding:22px}
+  .course-uni{font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+  .course-title{font-family:'Noto Serif KR',serif;font-weight:500;font-size:20px;line-height:1.3;letter-spacing:-.01em;margin-bottom:12px}
+  .course-meta{display:flex;gap:12px;font-size:12px;color:var(--ink-soft);align-items:center}
+  .course-meta span{display:flex;align-items:center;gap:4px}
+
+  /* ===== BANNER ===== */
+  .banner{background:var(--ink);color:#fff;border-radius:24px;padding:64px;margin:0 32px;max-width:1216px;margin-left:auto;margin-right:auto;display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center;position:relative;overflow:hidden}
+  .banner::before{content:"";position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,var(--accent),transparent 70%);opacity:.3}
+  .banner h2{font-family:'Noto Serif KR',serif;font-weight:400;font-size:48px;line-height:1.1;letter-spacing:-.02em;margin-bottom:20px;position:relative}
+  .banner h2 em{color:var(--gold)}
+  .banner p{color:#B8B5AE;font-size:15px;line-height:1.6;margin-bottom:28px;position:relative}
+  .banner .btn-solid{background:var(--accent);position:relative}
+  .banner .btn-solid:hover{background:#fff;color:var(--ink)}
+  .banner-vis{position:relative;text-align:center}
+  .banner-vis .big{font-family:'Noto Serif KR',serif;font-size:160px;font-weight:300;color:var(--gold);line-height:1;letter-spacing:-.04em}
+  .banner-vis .lbl{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#B8B5AE;margin-top:8px}
+
+  /* ===== FOOTER ===== */
+  footer{max-width:1280px;margin:80px auto 0;padding:60px 32px 40px;border-top:1px solid var(--line)}
+  .foot-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+  .foot-top h4{font-size:13px;font-weight:700;margin-bottom:16px;letter-spacing:.02em}
+  .foot-top ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .foot-top a{font-size:13px;color:var(--ink-soft)}
+  .foot-top a:hover{color:var(--ink)}
+  .foot-desc{font-size:13px;color:var(--ink-soft);line-height:1.6;max-width:320px;margin-top:12px}
+  .foot-bot{padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft)}
+
+  /* ===== AUTH MODAL ===== */
+  .auth-overlay{position:fixed;inset:0;background:rgba(14,17,22,.5);backdrop-filter:blur(8px);z-index:100;display:none;align-items:center;justify-content:center;padding:24px;animation:fadeIn .25s}
+  .auth-overlay.active{display:flex}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .auth-card{background:var(--card);border-radius:24px;max-width:440px;width:100%;padding:48px 40px;position:relative;animation:slideUp .35s cubic-bezier(.16,1,.3,1)}
+  @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .auth-close{position:absolute;top:20px;right:20px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);font-size:18px}
+  .auth-close:hover{background:var(--bg)}
+  .auth-title{font-family:'Noto Serif KR',serif;font-weight:400;font-size:36px;letter-spacing:-.025em;line-height:1.1;margin-bottom:8px}
+  .auth-title em{color:var(--accent)}
+  .auth-sub{font-size:14px;color:var(--ink-soft);margin-bottom:32px}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:12px;font-weight:600;margin-bottom:6px;color:var(--ink-soft)}
+  .field input{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:12px;font-size:14px;font-family:inherit;background:var(--bg);transition:all .2s}
+  .field input:focus{outline:none;border-color:var(--ink);background:#fff}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .auth-options{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin:8px 0 20px}
+  .auth-options label{display:flex;align-items:center;gap:6px;color:var(--ink-soft);cursor:pointer}
+  .auth-options a{color:var(--ink);font-weight:500;text-decoration:underline;text-underline-offset:3px}
+  .btn-full{width:100%;padding:16px;background:var(--ink);color:#fff;border-radius:12px;font-size:14px;font-weight:600;transition:background .2s}
+  .btn-full:hover{background:var(--accent)}
+  .divider{display:flex;align-items:center;gap:12px;margin:24px 0;font-size:11px;color:var(--ink-soft);letter-spacing:.1em}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+  .socials{display:flex;gap:10px}
+  .social{flex:1;padding:12px;border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:500;transition:all .2s}
+  .social:hover{border-color:var(--ink);background:var(--bg)}
+  .auth-switch{text-align:center;margin-top:24px;font-size:13px;color:var(--ink-soft)}
+  .auth-switch a{color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+
+  /* Responsive */
+  @media (max-width: 900px){
+    .hero-side{display:none}
+    .stats{grid-template-columns:repeat(2,1fr);gap:24px}
+    .cats{grid-template-columns:repeat(3,1fr)}
+    .courses{grid-template-columns:1fr}
+    .banner{grid-template-columns:1fr;padding:40px}
+    .foot-top{grid-template-columns:1fr 1fr}
+    .nav-links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo"><span class="logo-dot"></span>LEARN<span style="color:var(--accent)">:</span>U</a>
+    <div class="nav-links">
+      <a href="#">강좌 둘러보기</a>
+      <a href="#">분야별 학습</a>
+      <a href="#">대학·기관</a>
+      <a href="#">수료증</a>
+      <a href="#">커뮤니티</a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn btn-ghost" onclick="openAuth('login')">로그인</button>
+      <button class="btn btn-solid" onclick="openAuth('signup')">시작하기</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-side">
+    NO.001<br>
+    <span class="num">'26</span>
+    SPRING SEMESTER
+  </div>
+  <div class="hero-tag"><span class="pulse"></span>2026 봄학기 수강신청 진행 중</div>
+  <h1>
+    배움에는 <em>경계</em>가<br>
+    없다, <span class="underline serif">오직</span> 호기심뿐.
+  </h1>
+  <p class="hero-sub">국내 100여 개 대학·기관의 정규 강의를 무료로. 수료증부터 학점인정까지, 누구에게나 열린 한국형 온라인 공개강좌 플랫폼.</p>
+  <form class="search" onsubmit="event.preventDefault()">
+    <input type="text" placeholder="배우고 싶은 과목, 키워드, 교수님 이름을 입력하세요">
+    <button type="submit">검색</button>
+  </form>
+</header>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="num serif">2,847</div><div class="label">개설된 강좌 수</div></div>
+  <div class="stat"><div class="num serif">128</div><div class="label">참여 대학·기관</div></div>
+  <div class="stat"><div class="num serif">94만<sup style="font-size:.4em">+</sup></div><div class="label">누적 학습자</div></div>
+  <div class="stat"><div class="num serif">100<small style="font-size:.5em">%</small></div><div class="label">무료 수강</div></div>
+</div>
+
+<!-- CATEGORIES -->
+<section>
+  <div class="sec-head">
+    <div>
+      <h2>분야별 <em>탐색</em></h2>
+    </div>
+    <p>인문·사회부터 공학·예술까지, 관심 있는 분야를 골라 깊이 있게 배워보세요.</p>
+  </div>
+  <div class="cats">
+    <div class="cat"><span class="cat-ico">📚</span><div class="cat-name">인문학</div><div class="cat-count">312 강좌</div></div>
+    <div class="cat"><span class="cat-ico">⚖️</span><div class="cat-name">사회과학</div><div class="cat-count">428 강좌</div></div>
+    <div class="cat"><span class="cat-ico">🧬</span><div class="cat-name">자연과학</div><div class="cat-count">256 강좌</div></div>
+    <div class="cat"><span class="cat-ico">💻</span><div class="cat-name">공학·IT</div><div class="cat-count">612 강좌</div></div>
+    <div class="cat"><span class="cat-ico">🎨</span><div class="cat-name">예술·체육</div><div class="cat-count">189 강좌</div></div>
+    <div class="cat"><span class="cat-ico">💼</span><div class="cat-name">경영·경제</div><div class="cat-count">374 강좌</div></div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section style="padding-top:20px">
+  <div class="sec-head">
+    <div>
+      <h2><em>이번 주</em> 추천 강좌</h2>
+    </div>
+    <p>학습자들에게 가장 많이 선택된 강좌들을 만나보세요.</p>
+  </div>
+  <div class="courses">
+    <article class="course">
+      <div class="course-img"><div class="pattern"></div><span class="badge">신규</span></div>
+      <div class="course-body">
+        <div class="course-uni">서울대학교 · 컴퓨터공학부</div>
+        <div class="course-title">파이썬으로 시작하는 데이터 사이언스</div>
+        <div class="course-meta"><span>⭐ 4.9</span><span>👥 12,847명</span><span>🎓 수료증</span></div>
+      </div>
+    </article>
+    <article class="course">
+      <div class="course-img b"><div class="pattern"></div><span class="badge">인기</span></div>
+      <div class="course-body">
+        <div class="course-uni">연세대학교 · 경영학과</div>
+        <div class="course-title">스타트업을 위한 비즈니스 모델 설계</div>
+        <div class="course-meta"><span>⭐ 4.8</span><span>👥 8,231명</span><span>🎓 수료증</span></div>
+      </div>
+    </article>
+    <article class="course">
+      <div class="course-img c"><div class="pattern"></div><span class="badge">학점인정</span></div>
+      <div class="course-body">
+        <div class="course-uni">KAIST · 산업디자인학과</div>
+        <div class="course-title">사용자 중심 UX 디자인의 원리</div>
+        <div class="course-meta"><span>⭐ 4.9</span><span>👥 6,492명</span><span>🎓 수료증</span></div>
+      </div>
+    </article>
+    <article class="course">
+      <div class="course-img d"><div class="pattern"></div><span class="badge">NEW</span></div>
+      <div class="course-body">
+        <div class="course-uni">고려대학교 · 심리학과</div>
+        <div class="course-title">일상에서 만나는 인지심리학 입문</div>
+        <div class="course-meta"><span>⭐ 4.7</span><span>👥 4,128명</span><span>🎓 수료증</span></div>
+      </div>
+    </article>
+    <article class="course">
+      <div class="course-img e"><div class="pattern"></div><span class="badge">베스트</span></div>
+      <div class="course-body">
+        <div class="course-uni">포항공과대학교 · 수학과</div>
+        <div class="course-title">머신러닝을 위한 선형대수학</div>
+        <div class="course-meta"><span>⭐ 4.9</span><span>👥 9,673명</span><span>🎓 수료증</span></div>
+      </div>
+    </article>
+    <article class="course">
+      <div class="course-img f"><div class="pattern"></div><span class="badge">실습</span></div>
+      <div class="course-body">
+        <div class="course-uni">성균관대학교 · 미디어커뮤니케이션</div>
+        <div class="course-title">디지털 시대의 영상 스토리텔링</div>
+        <div class="course-meta"><span>⭐ 4.8</span><span>👥 3,542명</span><span>🎓 수료증</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- BANNER -->
+<div class="banner">
+  <div>
+    <h2>당신의 학습은<br><em>증명</em>될 수 있습니다.</h2>
+    <p>K-MOOC 인증 수료증으로 학습 성과를 객관적으로 입증하고, 일부 강좌는 학점인정원과 연계되어 학점으로도 활용 가능합니다.</p>
+    <button class="btn btn-solid">수료증 안내 보기 →</button>
+  </div>
+  <div class="banner-vis">
+    <div class="big serif">⌘</div>
+    <div class="lbl">CERTIFIED LEARNING</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-top">
+    <div>
+      <div class="logo"><span class="logo-dot"></span>LEARN<span style="color:var(--accent)">:</span>U</div>
+      <p class="foot-desc">누구나, 어디서나, 무엇이든 배울 수 있는 한국형 온라인 공개강좌 플랫폼.</p>
+    </div>
+    <div>
+      <h4>플랫폼</h4>
+      <ul><li><a href="#">강좌 둘러보기</a></li><li><a href="#">대학·기관</a></li><li><a href="#">수료증</a></li><li><a href="#">학점 인정</a></li></ul>
+    </div>
+    <div>
+      <h4>지원</h4>
+      <ul><li><a href="#">고객센터</a></li><li><a href="#">자주 묻는 질문</a></li><li><a href="#">기술 지원</a></li><li><a href="#">공지사항</a></li></ul>
+    </div>
+    <div>
+      <h4>회사</h4>
+      <ul><li><a href="#">서비스 소개</a></li><li><a href="#">이용약관</a></li><li><a href="#">개인정보처리방침</a></li><li><a href="#">제휴문의</a></li></ul>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <div>© 2026 LEARN:U. All rights reserved.</div>
+    <div>Made with care in Seoul</div>
+  </div>
+</footer>
+
+<!-- ===== LOGIN MODAL ===== -->
+<div class="auth-overlay" id="login-modal">
+  <div class="auth-card">
+    <button class="auth-close" onclick="closeAuth()">✕</button>
+    <h2 class="auth-title">다시 만나서<br><em>반가워요</em>.</h2>
+    <p class="auth-sub">계정에 로그인하고 학습을 이어가세요.</p>
+    <form onsubmit="event.preventDefault();alert('로그인 처리(데모)')">
+      <div class="field">
+        <label>이메일</label>
+        <input type="email" placeholder="you@example.com" required>
+      </div>
+      <div class="field">
+        <label>비밀번호</label>
+        <input type="password" placeholder="••••••••" required>
+      </div>
+      <div class="auth-options">
+        <label><input type="checkbox"> 로그인 유지</label>
+        <a href="#">비밀번호 찾기</a>
+      </div>
+      <button type="submit" class="btn-full">로그인</button>
+      <div class="divider">또는 소셜 계정으로</div>
+      <div class="socials">
+        <button type="button" class="social">🟡 Kakao</button>
+        <button type="button" class="social">🟢 Naver</button>
+        <button type="button" class="social">⚪ Google</button>
+      </div>
+      <div class="auth-switch">아직 계정이 없으신가요? <a onclick="switchAuth('signup')">회원가입</a></div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== SIGNUP MODAL ===== -->
+<div class="auth-overlay" id="signup-modal">
+  <div class="auth-card">
+    <button class="auth-close" onclick="closeAuth()">✕</button>
+    <h2 class="auth-title">배움의 <em>시작</em>,<br>지금 함께해요.</h2>
+    <p class="auth-sub">무료 계정을 만들고 2,800개 이상의 강좌를 만나보세요.</p>
+    <form onsubmit="event.preventDefault();alert('가입 처리(데모)')">
+      <div class="field">
+        <label>이름</label>
+        <input type="text" placeholder="홍길동" required>
+      </div>
+      <div class="field">
+        <label>이메일</label>
+        <input type="email" placeholder="you@example.com" required>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>비밀번호</label>
+          <input type="password" placeholder="8자 이상" required>
+        </div>
+        <div class="field">
+          <label>비밀번호 확인</label>
+          <input type="password" placeholder="다시 입력" required>
+        </div>
+      </div>
+      <div class="auth-options">
+        <label><input type="checkbox" required> <span>이용약관 및 개인정보 처리방침에 동의합니다</span></label>
+      </div>
+      <button type="submit" class="btn-full">계정 만들기</button>
+      <div class="divider">또는 소셜 계정으로</div>
+      <div class="socials">
+        <button type="button" class="social">🟡 Kakao</button>
+        <button type="button" class="social">🟢 Naver</button>
+        <button type="button" class="social">⚪ Google</button>
+      </div>
+      <div class="auth-switch">이미 계정이 있으신가요? <a onclick="switchAuth('login')">로그인</a></div>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openAuth(type){
+    document.getElementById(type+'-modal').classList.add('active');
+    document.body.style.overflow='hidden';
+  }
+  function closeAuth(){
+    document.querySelectorAll('.auth-overlay').forEach(m=>m.classList.remove('active'));
+    document.body.style.overflow='';
+  }
+  function switchAuth(type){
+    closeAuth();
+    setTimeout(()=>openAuth(type),100);
+  }
+  document.querySelectorAll('.auth-overlay').forEach(o=>{
+    o.addEventListener('click',e=>{if(e.target===o)closeAuth()});
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAuth()});
+</script>
+
+</body>
+</html>
