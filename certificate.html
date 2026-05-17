@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>수료증 — LEARN:U</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Serif+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#FAF7F2;--ink:#0E1116;--ink-soft:#4A4F58;--line:#E6E1D8;--accent:#FF4D2E;--gold:#D4A24C;--card:#FFFFFF;--shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(14,17,22,.06)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(12px);background:rgba(250,247,242,.85);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:1280px;margin:0 auto;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+  .logo{font-family:'Noto Serif KR',serif;font-weight:900;font-size:24px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+  .logo-dot{width:10px;height:10px;background:var(--accent);border-radius:50%;display:inline-block}
+  .nav-links{display:flex;gap:28px;font-size:14px;font-weight:500;color:var(--ink-soft)}
+  .nav-links a{transition:color .2s}
+  .nav-links a:hover,.nav-links a.active{color:var(--ink)}
+  .btn{padding:10px 18px;border-radius:999px;font-size:13px;font-weight:600;transition:all .2s;border:1px solid transparent}
+  .btn-ghost{border-color:var(--line)}
+  .btn-ghost:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn-solid{background:var(--ink);color:#fff}
+  .btn-solid:hover{background:var(--accent)}
+  .nav-cta{display:flex;gap:10px}
+
+  /* HERO */
+  .cert-hero{max-width:1280px;margin:0 auto;padding:64px 32px;display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center}
+  .ch-left .crumb{font-size:12px;color:var(--ink-soft);margin-bottom:16px;letter-spacing:.05em}
+  .ch-left h1{font-family:'Noto Serif KR',serif;font-weight:500;font-size:clamp(40px,5vw,64px);letter-spacing:-.03em;line-height:1.1;margin-bottom:20px}
+  .ch-left h1 em{color:var(--accent);font-style:normal}
+  .ch-left p{font-size:16px;color:var(--ink-soft);line-height:1.7;margin-bottom:28px}
+  .ch-left .actions{display:flex;gap:12px}
+
+  /* CERTIFICATE PREVIEW */
+  .cert-preview{background:#fff;border:1px solid var(--line);border-radius:8px;padding:40px;box-shadow:0 20px 60px rgba(14,17,22,.15);position:relative;aspect-ratio:1.4/1;display:flex;flex-direction:column;justify-content:space-between;transform:rotate(1deg);transition:transform .3s}
+  .cert-preview:hover{transform:rotate(0)}
+  .cert-preview::before{content:"";position:absolute;inset:12px;border:2px solid var(--gold);border-radius:4px;pointer-events:none;opacity:.5}
+  .cp-head{text-align:center;position:relative}
+  .cp-head .seal{display:inline-block;font-family:'Noto Serif KR',serif;font-size:11px;letter-spacing:.3em;color:var(--gold);font-weight:600;margin-bottom:8px}
+  .cp-head h2{font-family:'Noto Serif KR',serif;font-weight:600;font-size:28px;letter-spacing:-.02em}
+  .cp-head .sub{font-size:11px;color:var(--ink-soft);letter-spacing:.2em;text-transform:uppercase;margin-top:4px}
+  .cp-body{text-align:center;padding:20px 0}
+  .cp-body .name{font-family:'Noto Serif KR',serif;font-size:32px;font-weight:500;color:var(--ink);letter-spacing:-.02em;border-bottom:1px solid var(--ink);padding-bottom:8px;display:inline-block;min-width:60%}
+  .cp-body .desc{font-size:12px;color:var(--ink-soft);margin-top:14px;line-height:1.7}
+  .cp-body .course-name{font-family:'Noto Serif KR',serif;font-weight:600;color:var(--ink);font-size:15px;margin-top:6px}
+  .cp-foot{display:flex;justify-content:space-between;align-items:flex-end;font-size:10px;color:var(--ink-soft)}
+  .cp-foot .sig{font-family:'Noto Serif KR',serif;font-style:italic;color:var(--ink);font-size:14px;border-bottom:1px solid var(--ink);padding-bottom:2px}
+  .cp-foot .num{font-family:monospace;letter-spacing:.1em}
+
+  /* STEPS */
+  .steps{max-width:1280px;margin:80px auto 0;padding:0 32px}
+  .steps h2{font-family:'Noto Serif KR',serif;font-weight:500;font-size:36px;letter-spacing:-.025em;margin-bottom:8px;text-align:center}
+  .steps h2 em{color:var(--accent);font-style:normal}
+  .steps > p{text-align:center;color:var(--ink-soft);font-size:14px;margin-bottom:48px}
+  .step-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative}
+  .step-grid::before{content:"";position:absolute;top:38px;left:10%;right:10%;height:1px;background:var(--line);z-index:0}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:32px 24px;text-align:center;position:relative;z-index:1}
+  .step-num{width:48px;height:48px;background:var(--ink);color:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;margin:0 auto 20px}
+  .step h3{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;margin-bottom:8px;letter-spacing:-.01em}
+  .step p{font-size:13px;color:var(--ink-soft);line-height:1.6}
+
+  /* TYPES */
+  .types{max-width:1280px;margin:80px auto 0;padding:0 32px}
+  .types h2{font-family:'Noto Serif KR',serif;font-weight:500;font-size:36px;letter-spacing:-.025em;margin-bottom:8px}
+  .types h2 em{color:var(--accent);font-style:normal}
+  .types > p{color:var(--ink-soft);font-size:14px;margin-bottom:40px}
+  .type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .type{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:32px;transition:all .3s}
+  .type:hover{border-color:var(--ink);transform:translateY(-4px)}
+  .type.featured{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .type-tag{display:inline-block;padding:4px 12px;background:var(--bg);border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.05em;color:var(--ink-soft);margin-bottom:20px}
+  .type.featured .type-tag{background:var(--accent);color:#fff}
+  .type h3{font-family:'Noto Serif KR',serif;font-size:24px;font-weight:600;margin-bottom:8px;letter-spacing:-.02em}
+  .type .price{font-family:'Noto Serif KR',serif;font-size:32px;font-weight:500;margin-bottom:20px}
+  .type.featured .price{color:var(--gold)}
+  .type ul{list-style:none;font-size:13px;line-height:2;padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:20px}
+  .type.featured ul{border-color:#333}
+  .type li::before{content:"✓";color:var(--accent);font-weight:700;margin-right:8px}
+  .type.featured li::before{color:var(--gold)}
+
+  /* FAQ */
+  .faq{max-width:1280px;margin:80px auto 0;padding:0 32px}
+  .faq h2{font-family:'Noto Serif KR',serif;font-weight:500;font-size:36px;letter-spacing:-.025em;margin-bottom:8px}
+  .faq h2 em{color:var(--accent);font-style:normal}
+  .faq > p{color:var(--ink-soft);font-size:14px;margin-bottom:32px}
+  .faq-list{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+  .faq-item{padding:24px 28px;border-bottom:1px solid var(--line);cursor:pointer}
+  .faq-item:last-child{border-bottom:none}
+  .faq-q{font-weight:600;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+  .faq-q::after{content:"+";font-size:24px;color:var(--ink-soft);font-weight:300}
+  .faq-item:hover .faq-q::after{color:var(--accent)}
+
+  footer{max-width:1280px;margin:80px auto 0;padding:40px 32px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft)}
+
+  @media (max-width:900px){
+    .nav-links{display:none}
+    .cert-hero{grid-template-columns:1fr;gap:40px}
+    .step-grid{grid-template-columns:1fr;gap:16px}
+    .step-grid::before{display:none}
+    .type-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-dot"></span>LEARN<span style="color:var(--accent)">:</span>U</a>
+    <div class="nav-links">
+      <a href="courses.html">강좌 둘러보기</a>
+      <a href="categories.html">분야별 학습</a>
+      <a href="institutions.html">대학·기관</a>
+      <a href="certificate.html" class="active">수료증</a>
+      <a href="community.html">커뮤니티</a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn btn-ghost">로그인</button>
+      <button class="btn btn-solid">시작하기</button>
+    </div>
+  </div>
+</nav>
+
+<section class="cert-hero">
+  <div class="ch-left">
+    <div class="crumb"><a href="index.html">홈</a> / 수료증</div>
+    <h1>당신의 학습은<br><em>증명</em>됩니다.</h1>
+    <p>LEARN:U 수료증은 발급 기관의 공식 인증을 받은 디지털 인증서입니다. 블록체인 기반 검증 시스템으로 위·변조가 불가능하며, 일부 강좌는 학점인정원과 연계되어 정규 학점으로도 활용할 수 있습니다.</p>
+    <div class="actions">
+      <button class="btn btn-solid">수료증 발급 강좌 보기</button>
+      <button class="btn btn-ghost">샘플 다운로드</button>
+    </div>
+  </div>
+  <div class="cert-preview">
+    <div class="cp-head">
+      <div class="seal">⌘ CERTIFIED BY LEARN:U</div>
+      <h2>Certificate of Completion</h2>
+      <div class="sub">수 료 증</div>
+    </div>
+    <div class="cp-body">
+      <div class="name">홍 길 동</div>
+      <div class="desc">위 학습자는 아래 강좌를 성실히 이수하였음을 증명합니다.</div>
+      <div class="course-name">파이썬으로 시작하는 데이터 사이언스</div>
+    </div>
+    <div class="cp-foot">
+      <div>발급일: 2026.05.17</div>
+      <div class="sig">서울대학교 총장</div>
+      <div class="num">No.2026-A0481</div>
+    </div>
+  </div>
+</section>
+
+<section class="steps">
+  <h2>수료증 발급, <em>이렇게</em> 진행돼요</h2>
+  <p>4단계만 거치면 누구나 공식 수료증을 받을 수 있습니다.</p>
+  <div class="step-grid">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>강좌 수강</h3>
+      <p>수료증 발급 가능 강좌를 선택하고 학습을 시작합니다.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>과제 & 시험</h3>
+      <p>모든 차시를 이수하고 평가 기준(통상 60점 이상)을 충족합니다.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>본인 인증</h3>
+      <p>휴대폰 또는 공동인증서로 학습자 본인 확인을 진행합니다.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>발급 완료</h3>
+      <p>마이페이지에서 즉시 PDF 다운로드, 링크 공유가 가능합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="types">
+  <h2>수료증 <em>종류</em></h2>
+  <p>학습 목적에 맞게 선택할 수 있는 세 가지 인증 등급을 제공합니다.</p>
+  <div class="type-grid">
+    <div class="type">
+      <div class="type-tag">BASIC</div>
+      <h3>이수 증명서</h3>
+      <div class="price">무료</div>
+      <ul>
+        <li>강좌 이수 확인</li>
+        <li>PDF 다운로드</li>
+        <li>온라인 공유 링크</li>
+        <li>QR 검증 코드 포함</li>
+      </ul>
+      <button class="btn btn-ghost" style="width:100%">신청하기</button>
+    </div>
+    <div class="type featured">
+      <div class="type-tag">STANDARD</div>
+      <h3>공식 수료증</h3>
+      <div class="price">5,000원</div>
+      <ul>
+        <li>발급 기관 직인 인증</li>
+        <li>블록체인 위변조 방지</li>
+        <li>LinkedIn 자동 연동</li>
+        <li>고해상도 인쇄용 PDF</li>
+        <li>실물 우편 발송 옵션</li>
+      </ul>
+      <button class="btn" style="background:var(--gold);color:var(--ink);width:100%;font-weight:700">신청하기</button>
+    </div>
+    <div class="type">
+      <div class="type-tag">PREMIUM</div>
+      <h3>학점 인정</h3>
+      <div class="price">15,000원</div>
+      <ul>
+        <li>STANDARD 모든 혜택 포함</li>
+        <li>학점인정원 정식 등록</li>
+        <li>대학 학점으로 활용 가능</li>
+        <li>성적증명서 발급</li>
+      </ul>
+      <button class="btn btn-ghost" style="width:100%">신청하기</button>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <h2>자주 묻는 <em>질문</em></h2>
+  <p>수료증 발급과 관련해 가장 많이 들어온 질문을 모았습니다.</p>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q">수료증은 어떻게 인증되나요?</div></div>
+    <div class="faq-item"><div class="faq-q">발급된 수료증은 평생 유효한가요?</div></div>
+    <div class="faq-item"><div class="faq-q">학점 인정은 어느 대학에서 가능한가요?</div></div>
+    <div class="faq-item"><div class="faq-q">수료 기준을 충족하지 못한 경우 재시도가 가능한가요?</div></div>
+    <div class="faq-item"><div class="faq-q">기업 교육으로 단체 수료증 발급이 가능한가요?</div></div>
+    <div class="faq-item"><div class="faq-q">해외에서도 수료증을 인정받을 수 있나요?</div></div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 LEARN:U. All rights reserved.</div>
+  <div>Made with care in Seoul</div>
+</footer>
+
+</body>
+</html>

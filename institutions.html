@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>대학·기관 — LEARN:U</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Serif+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#FAF7F2;--ink:#0E1116;--ink-soft:#4A4F58;--line:#E6E1D8;--accent:#FF4D2E;--gold:#D4A24C;--card:#FFFFFF;--shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(14,17,22,.06)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(12px);background:rgba(250,247,242,.85);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:1280px;margin:0 auto;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+  .logo{font-family:'Noto Serif KR',serif;font-weight:900;font-size:24px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+  .logo-dot{width:10px;height:10px;background:var(--accent);border-radius:50%;display:inline-block}
+  .nav-links{display:flex;gap:28px;font-size:14px;font-weight:500;color:var(--ink-soft)}
+  .nav-links a{transition:color .2s}
+  .nav-links a:hover,.nav-links a.active{color:var(--ink)}
+  .btn{padding:10px 18px;border-radius:999px;font-size:13px;font-weight:600;transition:all .2s;border:1px solid transparent}
+  .btn-ghost{border-color:var(--line)}
+  .btn-ghost:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn-solid{background:var(--ink);color:#fff}
+  .btn-solid:hover{background:var(--accent)}
+  .nav-cta{display:flex;gap:10px}
+
+  .page-head{max-width:1280px;margin:0 auto;padding:64px 32px 32px}
+  .crumb{font-size:12px;color:var(--ink-soft);margin-bottom:16px;letter-spacing:.05em}
+  .page-head h1{font-family:'Noto Serif KR',serif;font-weight:500;font-size:clamp(40px,5vw,64px);letter-spacing:-.03em;line-height:1.1;margin-bottom:16px}
+  .page-head h1 em{color:var(--accent);font-style:normal}
+  .page-head p{font-size:16px;color:var(--ink-soft);max-width:560px;line-height:1.6}
+
+  /* STAT STRIP */
+  .stat-strip{max-width:1280px;margin:24px auto 0;padding:32px;background:var(--ink);color:#fff;border-radius:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .stat-strip{margin-left:32px;margin-right:32px;max-width:calc(1280px - 64px)}
+  .ss-item .num{font-family:'Noto Serif KR',serif;font-weight:500;font-size:40px;letter-spacing:-.03em;color:var(--gold)}
+  .ss-item .lbl{font-size:12px;color:#B8B5AE;margin-top:4px;letter-spacing:.05em}
+
+  /* TABS */
+  .tabs{max-width:1280px;margin:48px auto 24px;padding:0 32px;display:flex;gap:8px;flex-wrap:wrap}
+  .tab{padding:10px 20px;border:1px solid var(--line);border-radius:999px;font-size:13px;font-weight:500;background:var(--card);transition:all .2s}
+  .tab:hover,.tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+  /* INSTITUTIONS GRID */
+  .inst-grid{max-width:1280px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .inst{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 24px;text-align:center;transition:all .3s;cursor:pointer}
+  .inst:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--ink)}
+  .inst-emblem{width:64px;height:64px;margin:0 auto 16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif KR',serif;font-size:24px;font-weight:700;letter-spacing:-.02em}
+  .e1{background:#0E1116;color:#fff}
+  .e2{background:#FF4D2E;color:#fff}
+  .e3{background:#D4A24C;color:#fff}
+  .e4{background:#5B7B7A;color:#fff}
+  .e5{background:#2D3142;color:#fff}
+  .e6{background:#8B6F47;color:#fff}
+  .e7{background:#C9A0DC;color:#fff}
+  .e8{background:#A8C5A0;color:#fff}
+  .inst-name{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:600;margin-bottom:6px;letter-spacing:-.01em}
+  .inst-meta{font-size:11px;color:var(--ink-soft);margin-bottom:14px;letter-spacing:.03em}
+  .inst-stat{display:flex;justify-content:center;gap:16px;font-size:11px;padding-top:14px;border-top:1px solid var(--line);color:var(--ink-soft)}
+  .inst-stat strong{color:var(--ink);font-weight:700;display:block;font-size:14px;margin-bottom:2px}
+
+  /* FEATURED */
+  .featured{max-width:1280px;margin:80px auto 0;padding:0 32px}
+  .featured h2{font-family:'Noto Serif KR',serif;font-weight:500;font-size:36px;letter-spacing:-.025em;margin-bottom:8px}
+  .featured h2 em{color:var(--accent);font-style:normal}
+  .featured > p{color:var(--ink-soft);font-size:14px;margin-bottom:32px}
+  .featured-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:48px;display:grid;grid-template-columns:1fr 2fr;gap:48px;align-items:center}
+  .fc-left .emblem-lg{width:120px;height:120px;background:var(--ink);color:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif KR',serif;font-size:44px;font-weight:700;margin-bottom:24px}
+  .fc-left h3{font-family:'Noto Serif KR',serif;font-size:28px;font-weight:600;margin-bottom:6px;letter-spacing:-.02em}
+  .fc-left .since{font-size:12px;color:var(--ink-soft);letter-spacing:.05em}
+  .fc-right p{font-size:14px;color:var(--ink-soft);line-height:1.7;margin-bottom:20px}
+  .fc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:20px}
+  .fc-stats .n{font-family:'Noto Serif KR',serif;font-size:28px;font-weight:500;color:var(--ink);letter-spacing:-.02em}
+  .fc-stats .l{font-size:11px;color:var(--ink-soft);margin-top:2px}
+
+  footer{max-width:1280px;margin:80px auto 0;padding:40px 32px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft)}
+
+  @media (max-width:900px){
+    .nav-links{display:none}
+    .inst-grid{grid-template-columns:repeat(2,1fr)}
+    .stat-strip{grid-template-columns:repeat(2,1fr)}
+    .featured-card{grid-template-columns:1fr;padding:32px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-dot"></span>LEARN<span style="color:var(--accent)">:</span>U</a>
+    <div class="nav-links">
+      <a href="courses.html">강좌 둘러보기</a>
+      <a href="categories.html">분야별 학습</a>
+      <a href="institutions.html" class="active">대학·기관</a>
+      <a href="certificate.html">수료증</a>
+      <a href="community.html">커뮤니티</a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn btn-ghost">로그인</button>
+      <button class="btn btn-solid">시작하기</button>
+    </div>
+  </div>
+</nav>
+
+<section class="page-head">
+  <div class="crumb"><a href="index.html">홈</a> / 대학·기관</div>
+  <h1>국내 최고의 교수진이<br><em>한자리에</em>.</h1>
+  <p>128개 대학과 연구기관이 참여하는 한국형 공개강좌 생태계. 각 기관의 대표 강좌와 학자를 만나보세요.</p>
+</section>
+
+<div class="stat-strip">
+  <div class="ss-item"><div class="num">128</div><div class="lbl">참여 기관</div></div>
+  <div class="ss-item"><div class="num">3,420</div><div class="lbl">참여 교수진</div></div>
+  <div class="ss-item"><div class="num">2,847</div><div class="lbl">제공 강좌</div></div>
+  <div class="ss-item"><div class="num">94만+</div><div class="lbl">누적 학습자</div></div>
+</div>
+
+<div class="tabs">
+  <button class="tab active">전체</button>
+  <button class="tab">국립대학</button>
+  <button class="tab">사립대학</button>
+  <button class="tab">전문대학</button>
+  <button class="tab">연구기관</button>
+  <button class="tab">기업·공공</button>
+</div>
+
+<div class="inst-grid">
+  <div class="inst"><div class="inst-emblem e1">서</div><div class="inst-name">서울대학교</div><div class="inst-meta">국립 · 1946년</div><div class="inst-stat"><div><strong>284</strong>강좌</div><div><strong>142</strong>교수</div></div></div>
+  <div class="inst"><div class="inst-emblem e2">연</div><div class="inst-name">연세대학교</div><div class="inst-meta">사립 · 1885년</div><div class="inst-stat"><div><strong>216</strong>강좌</div><div><strong>108</strong>교수</div></div></div>
+  <div class="inst"><div class="inst-emblem e3">고</div><div class="inst-name">고려대학교</div><div class="inst-meta">사립 · 1905년</div><div class="inst-stat"><div><strong>198</strong>강좌</div><div><strong>96</strong>교수</div></div></div>
+  <div class="inst"><div class="inst-emblem e4">K</div><div class="inst-name">KAIST</div><div class="inst-meta">국립 · 1971년</div><div class="inst-stat"><div><strong>174</strong>강좌</div><div><strong>87</strong>교수</div></div></div>
+  <div class="inst"><div class="inst-emblem e5">P</div><div class="inst-name">포항공과대학교</div><div class="inst-meta">사립 · 1986년</div><div class="inst-stat"><div><strong>112</strong>강좌</div><div><strong>54</strong>교수</div></div></div>
+  <div class="inst"><div class="inst-emblem e6">성</div><div class="inst-name">성균관대학교</div><div class="inst-meta">사립 · 1398년</div><div class="inst-stat"><div><strong>156</strong>강좌</div><div><strong>78</strong>교수</div></div></div>
+  <div class="inst"><div class="inst-emblem e7">한</div><div class="inst-name">한양대학교</div><div class="inst-meta">사립 · 1939년</div><div class="inst-stat"><div><strong>138</strong>강좌</div><div><strong>69</strong>교수</div></div></div>
+  <div class="inst"><div class="inst-emblem e8">이</div><div class="inst-name">이화여자대학교</div><div class="inst-meta">사립 · 1886년</div><div class="inst-stat"><div><strong>124</strong>강좌</div><div><strong>62</strong>교수</div></div></div>
+  <div class="inst"><div class="inst-emblem e1">중</div><div class="inst-name">중앙대학교</div><div class="inst-meta">사립 · 1918년</div><div class="inst-stat"><div><strong>108</strong>강좌</div><div><strong>51</strong>교수</div></div></div>
+  <div class="inst"><div class="inst-emblem e2">경</div><div class="inst-name">경희대학교</div><div class="inst-meta">사립 · 1949년</div><div class="inst-stat"><div><strong>96</strong>강좌</div><div><strong>48</strong>교수</div></div></div>
+  <div class="inst"><div class="inst-emblem e3">서</div><div class="inst-name">서강대학교</div><div class="inst-meta">사립 · 1960년</div><div class="inst-stat"><div><strong>82</strong>강좌</div><div><strong>41</strong>교수</div></div></div>
+  <div class="inst"><div class="inst-emblem e4">U</div><div class="inst-name">UNIST</div><div class="inst-meta">국립 · 2007년</div><div class="inst-stat"><div><strong>74</strong>강좌</div><div><strong>37</strong>교수</div></div></div>
+</div>
+
+<section class="featured">
+  <h2>이달의 <em>주목할 기관</em></h2>
+  <p>이번 달 가장 활발한 강좌 활동을 보인 기관을 소개합니다.</p>
+  <div class="featured-card">
+    <div class="fc-left">
+      <div class="emblem-lg">서</div>
+      <h3>서울대학교</h3>
+      <div class="since">SINCE 1946 · 국립대학</div>
+    </div>
+    <div class="fc-right">
+      <p>국내 최고 수준의 연구 역량과 교육 인프라를 바탕으로 인문학부터 첨단 과학기술까지 전 학문 분야에 걸친 양질의 공개강좌를 제공합니다. 2026년 봄학기에는 AI, 양자컴퓨팅, 기후과학 등 미래 핵심 분야의 신규 강좌 32개를 새롭게 선보입니다.</p>
+      <div class="fc-stats">
+        <div><div class="n">284</div><div class="l">총 강좌 수</div></div>
+        <div><div class="n">14만+</div><div class="l">수강생</div></div>
+        <div><div class="n">4.86</div><div class="l">평균 평점</div></div>
+      </div>
+      <button class="btn btn-solid">서울대 강좌 전체 보기 →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 LEARN:U. All rights reserved.</div>
+  <div>Made with care in Seoul</div>
+</footer>
+
+</body>
+</html>

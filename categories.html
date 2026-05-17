@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>분야별 학습 — LEARN:U</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Serif+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#FAF7F2;--ink:#0E1116;--ink-soft:#4A4F58;--line:#E6E1D8;--accent:#FF4D2E;--gold:#D4A24C;--card:#FFFFFF;--shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(14,17,22,.06)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(12px);background:rgba(250,247,242,.85);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:1280px;margin:0 auto;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+  .logo{font-family:'Noto Serif KR',serif;font-weight:900;font-size:24px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+  .logo-dot{width:10px;height:10px;background:var(--accent);border-radius:50%;display:inline-block}
+  .nav-links{display:flex;gap:28px;font-size:14px;font-weight:500;color:var(--ink-soft)}
+  .nav-links a{transition:color .2s}
+  .nav-links a:hover,.nav-links a.active{color:var(--ink)}
+  .btn{padding:10px 18px;border-radius:999px;font-size:13px;font-weight:600;transition:all .2s;border:1px solid transparent}
+  .btn-ghost{border-color:var(--line)}
+  .btn-ghost:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn-solid{background:var(--ink);color:#fff}
+  .btn-solid:hover{background:var(--accent)}
+  .nav-cta{display:flex;gap:10px}
+
+  .page-head{max-width:1280px;margin:0 auto;padding:64px 32px 48px}
+  .crumb{font-size:12px;color:var(--ink-soft);margin-bottom:16px;letter-spacing:.05em}
+  .page-head h1{font-family:'Noto Serif KR',serif;font-weight:500;font-size:clamp(40px,5vw,64px);letter-spacing:-.03em;line-height:1.1;margin-bottom:16px}
+  .page-head h1 em{color:var(--accent);font-style:normal}
+  .page-head p{font-size:16px;color:var(--ink-soft);max-width:560px;line-height:1.6}
+
+  /* CATEGORY CARDS */
+  .cat-grid{max-width:1280px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .cat-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:36px 32px;transition:all .3s;cursor:pointer;position:relative;overflow:hidden}
+  .cat-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--ink)}
+  .cat-card::before{content:"";position:absolute;top:0;right:0;width:140px;height:140px;border-radius:50%;opacity:.08;transform:translate(40%,-40%)}
+  .cat-card.c1::before{background:#D4A24C}
+  .cat-card.c2::before{background:#5B7B7A}
+  .cat-card.c3::before{background:#FF4D2E}
+  .cat-card.c4::before{background:#2D3142}
+  .cat-card.c5::before{background:#C9A0DC}
+  .cat-card.c6::before{background:#8B6F47}
+  .cat-ico{font-size:36px;margin-bottom:20px;display:block;position:relative}
+  .cat-name{font-family:'Noto Serif KR',serif;font-weight:600;font-size:24px;letter-spacing:-.02em;margin-bottom:8px;position:relative}
+  .cat-desc{font-size:13px;color:var(--ink-soft);line-height:1.6;margin-bottom:24px;position:relative;min-height:42px}
+  .cat-stats{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);padding-top:20px;border-top:1px solid var(--line);position:relative}
+  .cat-stats strong{color:var(--ink);font-weight:700;font-size:14px}
+  .cat-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;position:relative}
+  .cat-tag{font-size:11px;padding:4px 10px;background:var(--bg);border-radius:999px;color:var(--ink-soft);font-weight:500}
+
+  /* TRENDING */
+  .trending{max-width:1280px;margin:80px auto 0;padding:0 32px}
+  .trending h2{font-family:'Noto Serif KR',serif;font-weight:500;font-size:36px;letter-spacing:-.025em;margin-bottom:8px}
+  .trending h2 em{color:var(--accent);font-style:normal}
+  .trending p{color:var(--ink-soft);font-size:14px;margin-bottom:32px}
+  .trend-list{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+  .trend-row{display:grid;grid-template-columns:60px 1fr auto;padding:20px 28px;align-items:center;gap:20px;border-bottom:1px solid var(--line);transition:background .2s;cursor:pointer}
+  .trend-row:last-child{border-bottom:none}
+  .trend-row:hover{background:var(--bg)}
+  .trend-rank{font-family:'Noto Serif KR',serif;font-size:28px;font-weight:300;color:var(--ink-soft);letter-spacing:-.02em}
+  .trend-rank.top{color:var(--accent);font-weight:600}
+  .trend-info .field{font-size:11px;color:var(--accent);font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+  .trend-info .title{font-size:15px;font-weight:600;margin-bottom:4px}
+  .trend-info .meta{font-size:12px;color:var(--ink-soft)}
+  .trend-arrow{color:var(--ink-soft);font-size:18px}
+
+  footer{max-width:1280px;margin:80px auto 0;padding:40px 32px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft)}
+
+  @media (max-width:900px){
+    .nav-links{display:none}
+    .cat-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-dot"></span>LEARN<span style="color:var(--accent)">:</span>U</a>
+    <div class="nav-links">
+      <a href="courses.html">강좌 둘러보기</a>
+      <a href="categories.html" class="active">분야별 학습</a>
+      <a href="institutions.html">대학·기관</a>
+      <a href="certificate.html">수료증</a>
+      <a href="community.html">커뮤니티</a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn btn-ghost">로그인</button>
+      <button class="btn btn-solid">시작하기</button>
+    </div>
+  </div>
+</nav>
+
+<section class="page-head">
+  <div class="crumb"><a href="index.html">홈</a> / 분야별 학습</div>
+  <h1>관심 분야를 따라,<br><em>깊이 있게</em>.</h1>
+  <p>6개 대분류, 42개 세부 분야로 체계화된 학습 트랙. 입문부터 전문가 과정까지 단계별로 학습할 수 있습니다.</p>
+</section>
+
+<div class="cat-grid">
+  <div class="cat-card c1">
+    <span class="cat-ico">📚</span>
+    <div class="cat-name">인문학</div>
+    <div class="cat-desc">문학, 역사, 철학을 통해 인간과 세계를 이해합니다.</div>
+    <div class="cat-tags"><span class="cat-tag">문학</span><span class="cat-tag">역사</span><span class="cat-tag">철학</span><span class="cat-tag">언어학</span></div>
+    <div class="cat-stats"><span><strong>312</strong> 강좌</span><span><strong>28</strong> 대학</span><span>입문~고급</span></div>
+  </div>
+  <div class="cat-card c2">
+    <span class="cat-ico">⚖️</span>
+    <div class="cat-name">사회과학</div>
+    <div class="cat-desc">사회 현상을 분석하고 더 나은 공동체를 설계합니다.</div>
+    <div class="cat-tags"><span class="cat-tag">정치학</span><span class="cat-tag">사회학</span><span class="cat-tag">법학</span><span class="cat-tag">심리학</span></div>
+    <div class="cat-stats"><span><strong>428</strong> 강좌</span><span><strong>34</strong> 대학</span><span>입문~고급</span></div>
+  </div>
+  <div class="cat-card c3">
+    <span class="cat-ico">🧬</span>
+    <div class="cat-name">자연과학</div>
+    <div class="cat-desc">자연의 법칙을 탐구하고 현상을 과학적으로 설명합니다.</div>
+    <div class="cat-tags"><span class="cat-tag">수학</span><span class="cat-tag">물리학</span><span class="cat-tag">화학</span><span class="cat-tag">생물학</span></div>
+    <div class="cat-stats"><span><strong>256</strong> 강좌</span><span><strong>22</strong> 대학</span><span>입문~고급</span></div>
+  </div>
+  <div class="cat-card c4">
+    <span class="cat-ico">💻</span>
+    <div class="cat-name">공학·IT</div>
+    <div class="cat-desc">기술로 문제를 해결하고 미래의 시스템을 만듭니다.</div>
+    <div class="cat-tags"><span class="cat-tag">프로그래밍</span><span class="cat-tag">AI</span><span class="cat-tag">데이터</span><span class="cat-tag">기계공학</span></div>
+    <div class="cat-stats"><span><strong>612</strong> 강좌</span><span><strong>42</strong> 대학</span><span>입문~고급</span></div>
+  </div>
+  <div class="cat-card c5">
+    <span class="cat-ico">🎨</span>
+    <div class="cat-name">예술·체육</div>
+    <div class="cat-desc">창의적 표현과 신체 활동으로 삶을 풍요롭게 합니다.</div>
+    <div class="cat-tags"><span class="cat-tag">디자인</span><span class="cat-tag">음악</span><span class="cat-tag">미술</span><span class="cat-tag">스포츠</span></div>
+    <div class="cat-stats"><span><strong>189</strong> 강좌</span><span><strong>18</strong> 대학</span><span>입문~중급</span></div>
+  </div>
+  <div class="cat-card c6">
+    <span class="cat-ico">💼</span>
+    <div class="cat-name">경영·경제</div>
+    <div class="cat-desc">조직과 시장을 이해하고 가치를 창출하는 법을 배웁니다.</div>
+    <div class="cat-tags"><span class="cat-tag">경영학</span><span class="cat-tag">경제학</span><span class="cat-tag">마케팅</span><span class="cat-tag">회계</span></div>
+    <div class="cat-stats"><span><strong>374</strong> 강좌</span><span><strong>31</strong> 대학</span><span>입문~고급</span></div>
+  </div>
+</div>
+
+<section class="trending">
+  <h2>지금 <em>가장 뜨거운</em> 학습 분야</h2>
+  <p>이번 주 학습자들이 가장 많이 선택한 세부 분야 TOP 5</p>
+  <div class="trend-list">
+    <div class="trend-row">
+      <div class="trend-rank top">01</div>
+      <div class="trend-info"><div class="field">공학·IT</div><div class="title">인공지능 & 머신러닝</div><div class="meta">87개 강좌 · 이번 주 23,481명 학습</div></div>
+      <div class="trend-arrow">→</div>
+    </div>
+    <div class="trend-row">
+      <div class="trend-rank top">02</div>
+      <div class="trend-info"><div class="field">경영·경제</div><div class="title">스타트업 & 창업</div><div class="meta">42개 강좌 · 이번 주 14,902명 학습</div></div>
+      <div class="trend-arrow">→</div>
+    </div>
+    <div class="trend-row">
+      <div class="trend-rank">03</div>
+      <div class="trend-info"><div class="field">사회과학</div><div class="title">심리학과 행동경제학</div><div class="meta">31개 강좌 · 이번 주 11,254명 학습</div></div>
+      <div class="trend-arrow">→</div>
+    </div>
+    <div class="trend-row">
+      <div class="trend-rank">04</div>
+      <div class="trend-info"><div class="field">자연과학</div><div class="title">통계학과 데이터 분석</div><div class="meta">28개 강좌 · 이번 주 9,873명 학습</div></div>
+      <div class="trend-arrow">→</div>
+    </div>
+    <div class="trend-row">
+      <div class="trend-rank">05</div>
+      <div class="trend-info"><div class="field">예술·체육</div><div class="title">UX/UI 디자인</div><div class="meta">19개 강좌 · 이번 주 7,621명 학습</div></div>
+      <div class="trend-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 LEARN:U. All rights reserved.</div>
+  <div>Made with care in Seoul</div>
+</footer>
+
+</body>
+</html>
