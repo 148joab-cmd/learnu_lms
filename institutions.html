@@ -34,8 +34,8 @@
   .page-head p{font-size:16px;color:var(--ink-soft);max-width:560px;line-height:1.6}
 
   /* STAT STRIP */
-  .stat-strip{max-width:1280px;margin:24px auto 0;padding:32px;background:var(--ink);color:#fff;border-radius:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-  .stat-strip{margin-left:32px;margin-right:32px;max-width:calc(1280px - 64px)}
+  .stat-wrap{max-width:1280px;margin:24px auto 0;padding:0 32px}
+  .stat-strip{background:var(--ink);color:#fff;border-radius:20px;padding:32px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
   .ss-item .num{font-family:'Noto Serif KR',serif;font-weight:500;font-size:40px;letter-spacing:-.03em;color:var(--gold)}
   .ss-item .lbl{font-size:12px;color:#B8B5AE;margin-top:4px;letter-spacing:.05em}
 
@@ -81,7 +81,7 @@
   @media (max-width:900px){
     .nav-links{display:none}
     .inst-grid{grid-template-columns:repeat(2,1fr)}
-    .stat-strip{grid-template-columns:repeat(2,1fr)}
+    .stat-strip{grid-template-columns:repeat(2,1fr);padding:24px}
     .featured-card{grid-template-columns:1fr;padding:32px}
   }
 </style>
@@ -111,11 +111,13 @@
   <p>128개 대학과 연구기관이 참여하는 한국형 공개강좌 생태계. 각 기관의 대표 강좌와 학자를 만나보세요.</p>
 </section>
 
-<div class="stat-strip">
-  <div class="ss-item"><div class="num">128</div><div class="lbl">참여 기관</div></div>
-  <div class="ss-item"><div class="num">3,420</div><div class="lbl">참여 교수진</div></div>
-  <div class="ss-item"><div class="num">2,847</div><div class="lbl">제공 강좌</div></div>
-  <div class="ss-item"><div class="num">94만+</div><div class="lbl">누적 학습자</div></div>
+<div class="stat-wrap">
+  <div class="stat-strip">
+    <div class="ss-item"><div class="num">128</div><div class="lbl">참여 기관</div></div>
+    <div class="ss-item"><div class="num">3,420</div><div class="lbl">참여 교수진</div></div>
+    <div class="ss-item"><div class="num">2,847</div><div class="lbl">제공 강좌</div></div>
+    <div class="ss-item"><div class="num">94만+</div><div class="lbl">누적 학습자</div></div>
+  </div>
 </div>
 
 <div class="tabs">
