@@ -171,10 +171,12 @@
   .persona-card:last-child{margin-bottom:0}
   .persona-head{display:flex;align-items:center;gap:16px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--line)}
   .persona-avatar{
-    width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));
     color:var(--paper);display:flex;align-items:center;justify-content:center;
-    font-size:22px;font-weight:700;flex-shrink:0;
+    font-size:22px;font-weight:700;flex-shrink:0;overflow:hidden;
+    border:2px solid var(--paper);box-shadow:0 2px 8px rgba(0,0,0,.08);
   }
+  .persona-avatar img{width:100%;height:100%;object-fit:cover;display:block}
   .persona-head .info{flex:1}
   .persona-head .name{font-size:16px;font-weight:700;letter-spacing:-.3px}
   .persona-head .role{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
@@ -248,15 +250,7 @@
 
   /* 반응형 */
   @media (max-width: 720px){
-    .intro-head{padding:24px 24px 0}
-    .intro-body{padding:22px 24px 26px}
-    .intro-foot{padding:14px 24px}
-    .intro-tabs{margin:0 -24px;padding:0 24px;overflow-x:auto}
-    .intro-title{font-size:22px}
-    .persona-grid{grid-template-columns:1fr}
-    .pain-points{grid-template-columns:1fr}
-    .feature-row{grid-template-columns:1fr;gap:8px}
-    .feature-row .arrow{transform:rotate(90deg)}
+    /* 인트로 모달 보조 규칙은 980px 통합본에 포함됨 */
   }
   .tag-input-wrap{
     display:flex;flex-wrap:wrap;gap:6px;padding:8px;border:1px solid var(--line);
@@ -1683,18 +1677,6 @@
     border-radius:4px;font-size:13.5px;font-family:inherit;outline:none;cursor:pointer;
   }
 
-  @media (max-width: 980px){
-    .admin-stats-grid{grid-template-columns:1fr 1fr}
-    .admin-table.posts .admin-table-head, .admin-table.posts .admin-row,
-    .admin-table.users .admin-table-head, .admin-table.users .admin-row,
-    .admin-table.jobs .admin-table-head, .admin-table.jobs .admin-row,
-    .admin-table.comments .admin-table-head, .admin-table.comments .admin-row{
-      grid-template-columns:1fr auto;gap:8px;
-    }
-    .admin-table-head{display:none}
-    .admin-row > *:not(.title-link):not(.admin-actions-cell){display:none}
-  }
-
   /* ===== 토스트 ===== */
   .toast{
     position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(100px);
@@ -1703,36 +1685,337 @@
   }
   .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
-  /* Responsive */
+  /* ===== iOS Safari 자동 줌 방지 ===== */
+  @media (max-width: 640px){
+    input[type="text"], input[type="email"], input[type="password"],
+    input[type="tel"], input[type="number"], textarea, select{
+      font-size:16px !important;
+    }
+  }
+
+  /* ===== 반응형: 태블릿 (980px 이하) ===== */
   @media (max-width: 980px){
-    .hero{grid-template-columns:1fr;padding:60px 24px 40px}
-    .hero-visual{display:none}
-    .roles{grid-template-columns:repeat(2,1fr)}
-    .posts{grid-template-columns:1fr}
-    .foot-inner{grid-template-columns:1fr 1fr;gap:32px}
+    /* 헤더 */
     .nav{display:none}
     .hamburger{display:flex}
     #authButtons{display:none !important}
     .theme-toggle{display:none}
+    .intro-reopen{display:none}
     .search-input{width:140px}
     .search-input:focus{width:160px}
-    .board-row{grid-template-columns:64px 1fr;gap:14px;padding:14px 8px}
+    .topbar-inner{padding:14px 18px;gap:12px}
+
+    /* 히어로 */
+    .hero{grid-template-columns:1fr;padding:50px 22px 40px;gap:30px}
+    .hero-visual{display:none}
+    .stat-row{gap:32px}
+
+    /* 4개 역할 카드 */
+    .roles{grid-template-columns:repeat(2,1fr)}
+
+    /* 인기 게시글 카드 */
+    .posts{grid-template-columns:1fr}
+
+    /* 섹션 헤딩 */
+    .section{padding:60px 22px}
+    .section-head h2{font-size:34px;line-height:1.25}
+
+    /* 푸터 */
+    .foot-inner{grid-template-columns:1fr 1fr;gap:32px}
+
+    /* 게시판 */
+    .board-page{padding:40px 22px 80px}
+    .board-row{grid-template-columns:56px 1fr;gap:12px;padding:14px 8px}
     .row-cat,.row-date,.row-author{display:none}
     .row-stats{justify-content:flex-start;grid-column:2}
-    .detail-title{font-size:28px}
+    .board-head h1{font-size:30px}
+
+    /* 글쓰기 폼 */
+    .write-page{padding:40px 22px 80px}
+    .write-page h1{font-size:28px}
+
+    /* 상세 페이지 */
+    .detail-page{padding:40px 22px 80px}
+    .detail-title{font-size:26px}
+
+    /* 양식 에디터들 */
     .sb-scene-body,.sb-detail-scene-body,.vp-cut-body{grid-template-columns:1fr}
     .sb-image-zone,.sb-detail-image{border-right:none;border-bottom:1px solid var(--line)}
     .sb-overview,.vp-overview,.cl-overview,.pr-overview{grid-template-columns:1fr}
-    .sb-detail-meta{grid-template-columns:1fr}
+    .sb-detail-meta{grid-template-columns:1fr 1fr}
+
+    /* 체크리스트 */
     .cl-item{grid-template-columns:24px 1fr 24px}
     .cl-owner,.cl-due{display:none}
+
+    /* 구인구직 */
+    .jobs-page{padding:40px 22px 80px}
     .jobs-grid{grid-template-columns:1fr}
     .job-form-grid{grid-template-columns:1fr}
     .job-detail-hero .key-info{grid-template-columns:1fr 1fr}
-    .jobs-hero{flex-direction:column;text-align:center}
-    .jobs-hero-stats{justify-content:center}
-    .mypage-hero{flex-direction:column;text-align:center;gap:18px}
-    .mp-stats{margin-left:0}
+    .jobs-hero{flex-direction:column;text-align:left;padding:26px 24px}
+    .jobs-hero-text h1{font-size:24px}
+    .jobs-hero-stats{justify-content:flex-start}
+    .jobs-tabs{overflow-x:auto;flex-wrap:nowrap}
+    .jobs-tab{padding:12px 18px;flex-shrink:0}
+    .job-detail{padding:40px 22px 80px}
+    .job-detail-hero{padding:24px}
+    .job-detail-hero h1{font-size:22px}
+
+    /* 마이페이지 */
+    .mypage{padding:40px 22px 80px}
+    .mypage-hero{flex-direction:column;text-align:center;gap:18px;padding:26px}
+    .mp-stats{margin-left:0;gap:22px}
+    .mp-tabs{overflow-x:auto;flex-wrap:nowrap}
+    .mp-tab{padding:12px 18px;flex-shrink:0}
+
+    /* 관리자 */
+    .admin-dashboard{padding:40px 22px 80px}
+    .admin-hero{flex-direction:column;text-align:left;padding:26px;gap:18px}
+    .admin-hero-stats{justify-content:flex-start;flex-wrap:wrap;gap:20px}
+    .admin-stats-grid{grid-template-columns:1fr 1fr}
+    .admin-tabs{overflow-x:auto;flex-wrap:nowrap}
+    .admin-tab{padding:12px 16px;flex-shrink:0;font-size:13px}
+    .admin-toolbar{flex-direction:column;align-items:stretch}
+    .admin-toolbar input,.admin-toolbar select{width:100%}
+    .admin-table.posts .admin-table-head, .admin-table.posts .admin-row,
+    .admin-table.users .admin-table-head, .admin-table.users .admin-row,
+    .admin-table.jobs .admin-table-head, .admin-table.jobs .admin-row,
+    .admin-table.comments .admin-table-head, .admin-table.comments .admin-row{
+      grid-template-columns:1fr auto;gap:8px;
+    }
+    .admin-table-head{display:none}
+    .admin-row > *:not(.title-link):not(.admin-actions-cell):not(.title-link *){display:none}
+    .admin-row .title-link{font-size:13.5px}
+
+    /* 검색 페이지 */
+    .search-page{padding:40px 22px 80px}
+    .search-page-head h1{font-size:26px}
+    .search-dropdown{width:calc(100vw - 40px);max-width:380px;right:-100px}
+
+    /* 모달 */
+    .modal{padding:36px 28px;max-width:none;margin:0 16px}
+    .modal h3{font-size:26px}
+
+    /* 인트로 모달 */
+    .intro-modal{max-height:92vh}
+    .intro-head{padding:24px 24px 0}
+    .intro-body{padding:22px 24px 26px}
+    .intro-foot{padding:14px 24px;flex-direction:column;align-items:stretch;gap:10px}
+    .intro-foot .actions{justify-content:flex-end}
+    .intro-tabs{margin:0 -24px;padding:0 24px;overflow-x:auto;flex-wrap:nowrap}
+    .intro-tab{flex-shrink:0}
+    .intro-title{font-size:22px}
+    .persona-grid{grid-template-columns:1fr}
+    .pain-points{grid-template-columns:1fr}
+    .feature-row{grid-template-columns:1fr;gap:8px}
+    .feature-row .arrow{transform:rotate(90deg);margin:4px 0}
+
+    /* 정보 모달 */
+    .modal.modal-info{margin:0 16px}
+    .info-head{padding:24px 28px 18px}
+    .info-head h3{font-size:24px}
+    .info-body{padding:20px 28px 28px}
+    .info-foot{padding:14px 28px;flex-direction:column-reverse;gap:8px}
+    .info-foot button{width:100%}
+    .info-body .stat-grid{grid-template-columns:1fr;gap:10px}
+
+    /* 사용자 메뉴 */
+    .user-dropdown{right:-50px}
+
+    /* 알림 드롭다운 */
+    .notif-dropdown{width:calc(100vw - 32px);max-width:360px;right:-100px}
+  }
+
+  /* ===== 반응형: 모바일 (640px 이하) ===== */
+  @media (max-width: 640px){
+    /* 헤더 더 컴팩트 */
+    .topbar-inner{padding:12px 14px;gap:8px}
+    .logo{font-size:20px}
+    .search-input{width:120px;padding:8px 12px 8px 30px;font-size:12.5px}
+    .search-input:focus{width:130px}
+    .search-icon{left:10px}
+
+    /* 히어로 */
+    .hero{padding:36px 18px 30px;gap:24px}
+    .eyebrow{font-size:11px;margin-bottom:18px}
+    .hero h1{font-size:34px !important;letter-spacing:-1px}
+    .hero h1 .sub-line{font-size:.55em;margin-top:12px}
+    .hero p.lede{font-size:14.5px;margin-top:20px}
+    .hero-cta{margin-top:26px;gap:10px;flex-wrap:wrap}
+    .hero-cta button{flex:1;min-width:140px}
+    .stat-row{gap:20px;margin-top:36px;padding-top:22px}
+    .stat .num{font-size:24px}
+    .stat .label{font-size:10.5px}
+
+    /* 4개 역할 카드 - 1열로 */
+    .roles{grid-template-columns:1fr}
+    .role{min-height:240px;padding:28px 22px}
+    .role-title{font-size:24px;margin-top:40px}
+
+    /* 섹션 */
+    .section{padding:50px 18px}
+    .section-head{margin-bottom:32px}
+    .section-head h2{font-size:28px;letter-spacing:-.8px}
+    .section-head p{font-size:14px}
+
+    /* 인기글 카드 */
+    .post-img{height:170px}
+    .post-body{padding:18px 20px 20px}
+    .post-title{font-size:18px}
+
+    /* 푸터 */
+    .foot-inner{grid-template-columns:1fr;gap:28px}
+    footer{padding:50px 22px 24px}
+    .foot-bottom{flex-direction:column;gap:8px;text-align:center;margin-top:40px}
+
+    /* 게시판 */
+    .board-page{padding:32px 18px 70px}
+    .board-head{margin-bottom:22px}
+    .board-head h1{font-size:24px}
+    .filter-chips{margin-bottom:20px}
+    .chip{padding:6px 12px;font-size:12px}
+    .row-thumb{width:48px;height:36px}
+    .row-title{font-size:14px}
+    .row-meta{font-size:11px}
+
+    /* 글쓰기 */
+    .write-page{padding:32px 18px 70px}
+    .write-page h1{font-size:24px}
+    .write-form input.title-input{font-size:18px;padding:14px}
+    .write-form input,.write-form select,.write-form textarea{padding:11px 13px;font-size:14px}
+    .write-form textarea{min-height:240px}
+    .sb-scene-head,.vp-cut-head,.cl-group-head{flex-wrap:wrap;gap:8px}
+    .vp-shot-type,.vp-duration{width:100%;flex:1}
+
+    /* 상세 페이지 */
+    .detail-page{padding:32px 18px 70px}
+    .detail-title{font-size:22px;letter-spacing:-.6px}
+    .detail-meta{flex-wrap:wrap}
+    .owner-actions{margin-left:0;width:100%;justify-content:flex-end;margin-top:8px}
+    .detail-body{padding:24px 0;font-size:15px}
+    .detail-actions{flex-wrap:wrap;gap:8px}
+
+    /* 댓글 */
+    .comment-form{flex-direction:column}
+    .comment-form button{width:100%}
+    .reply-form{padding-left:24px;flex-direction:column}
+    .reply-form button{width:100%}
+    .comment.reply{margin-left:24px;padding-left:10px}
+
+    /* 양식들 */
+    .sb-detail-meta{grid-template-columns:1fr}
+    .sb-overview,.vp-overview,.cl-overview,.pr-overview{padding:14px;gap:10px}
+    .sb-scene-body,.vp-cut-body{grid-template-columns:1fr}
+    .sb-image-zone{min-height:200px}
+    .sb-detail-image{min-height:180px}
+
+    /* 구인구직 */
+    .jobs-hero{padding:22px;border-radius:6px}
+    .jobs-hero-text h1{font-size:20px}
+    .jobs-hero-text p{font-size:13px}
+    .jobs-hero-cta{flex-direction:column;width:100%}
+    .jobs-hero-cta button{width:100%}
+    .jobs-hero-stats{gap:18px}
+    .jobs-hero-stats .num{font-size:22px}
+    .job-card{padding:18px 20px}
+    .job-title{font-size:16px}
+    .job-detail{padding:32px 18px 70px}
+    .job-detail-hero{padding:22px;border-radius:6px}
+    .job-detail-hero h1{font-size:20px}
+    .job-detail-hero .key-info{grid-template-columns:1fr 1fr;gap:10px}
+    .job-actions-bar{flex-direction:column;border-radius:8px;padding:12px}
+    .job-actions-bar > *{width:100%;justify-content:center}
+
+    /* 마이페이지 */
+    .mypage{padding:32px 18px 70px}
+    .mp-avatar{width:72px;height:72px;font-size:28px}
+    .mp-info h1{font-size:24px}
+    .mp-stats{flex-wrap:wrap;justify-content:center;gap:20px}
+    .mp-stats .num{font-size:22px}
+    .mp-tab{padding:11px 14px;font-size:13px}
+
+    /* 관리자 */
+    .admin-dashboard{padding:32px 18px 70px}
+    .admin-hero{padding:22px;border-radius:6px}
+    .admin-hero h1{font-size:22px}
+    .admin-hero-stats{gap:16px}
+    .admin-hero-stats .num{font-size:20px}
+    .admin-stats-grid{grid-template-columns:1fr 1fr;gap:10px}
+    .admin-stat-card{padding:14px}
+    .admin-stat-card .num{font-size:22px}
+    .admin-row{padding:12px}
+    .admin-actions-cell button{font-size:11px;padding:4px 8px}
+
+    /* 검색 */
+    .search-page{padding:32px 18px 70px}
+    .search-page-head h1{font-size:22px}
+    .sr-item{padding:16px}
+    .sr-title{font-size:16px}
+
+    /* 모달 */
+    .modal{padding:30px 24px;margin:0 12px;border-radius:6px}
+    .modal h3{font-size:22px}
+    .modal .modal-sub{font-size:13px}
+    .field input{padding:11px 13px;font-size:13.5px}
+
+    /* 인트로 모달 */
+    .intro-modal{border-radius:8px}
+    .intro-head{padding:22px 20px 0}
+    .intro-body{padding:18px 20px 22px}
+    .intro-foot{padding:12px 20px}
+    .intro-title{font-size:19px}
+    .intro-sub{font-size:13px}
+    .intro-tabs{margin:0 -20px;padding:0 20px}
+    .intro-tab{padding:10px 14px;font-size:12.5px}
+    .persona-card{padding:18px 20px}
+    .persona-head{gap:12px}
+    .persona-avatar{width:50px;height:50px}
+    .persona-head .name{font-size:15px}
+    .persona-head .role{font-size:11.5px}
+    .persona-head .tag{font-size:10px;padding:3px 8px}
+    .intent-block h4{font-size:12px}
+    .intent-block p{font-size:13.5px}
+
+    /* 정보 모달 */
+    .info-head{padding:22px 22px 16px}
+    .info-head h3{font-size:20px}
+    .info-body{padding:18px 22px 24px;font-size:13.5px}
+    .info-foot{padding:12px 22px}
+    .info-body .info-card{padding:14px 16px}
+
+    /* 검색 드롭다운 */
+    .search-dropdown{width:calc(100vw - 24px);right:-80px;max-height:60vh}
+
+    /* 알림 */
+    .notif-dropdown{width:calc(100vw - 24px);right:-90px}
+
+    /* 라이트박스 */
+    .lightbox{padding:20px}
+
+    /* 토스트 */
+    .toast{font-size:13px;padding:11px 18px;bottom:20px;max-width:calc(100vw - 32px)}
+
+    /* PWA 설치 안내 */
+    .install-prompt{padding:12px 14px;gap:10px;flex-wrap:wrap;bottom:16px}
+    .install-prompt .ip-text{flex:1;min-width:140px}
+    .install-prompt button{flex:1}
+
+    /* 페르소나 아바타 (인트로 모달) */
+    .persona-avatar{width:54px;height:54px}
+  }
+
+  /* ===== 매우 작은 화면 (380px 이하) ===== */
+  @media (max-width: 380px){
+    .topbar-inner{padding:10px 12px;gap:6px}
+    .logo{font-size:18px}
+    .search-input{width:90px;font-size:12px}
+    .hero h1{font-size:28px !important}
+    .role-title{font-size:20px}
+    .section-head h2{font-size:24px}
+    .post-title,.detail-title{font-size:18px}
+    .modal{padding:24px 20px;margin:0 8px}
+    .mp-stats .item .num,.admin-stat-card .num,.admin-hero-stats .num{font-size:18px}
   }
 </style>
 </head>
@@ -1809,6 +2092,9 @@
     <button class="md-close" onclick="closeMobileMenu()">×</button>
   </div>
   <nav class="md-nav">
+    <div style="padding:14px 24px 8px">
+      <input type="text" id="mdSearchInput" placeholder="🔍 검색…" style="width:100%;padding:11px 14px;border:1px solid var(--line);background:var(--bg);border-radius:4px;font-size:14px;outline:none;font-family:inherit;color:var(--ink)" onkeydown="if(event.key==='Enter'&&this.value.trim()){doSearch(this.value.trim());closeMobileMenu();this.value=''}"/>
+    </div>
     <a onclick="goHome();closeMobileMenu()">홈</a>
     <a onclick="goBoard();closeMobileMenu()">인사이트 전체</a>
     <div class="section-title">카테고리</div>
@@ -2580,7 +2866,7 @@
 
         <div class="persona-card">
           <div class="persona-head">
-            <div class="persona-avatar">박</div>
+            <div class="persona-avatar"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4KICA8IS0tIOuwsOqyvSDsm5DtmJUgLS0+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnMSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMyZDVhNGEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMWY0ZDNmIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJoYWlyMSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMmMxODEwIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzNkMjQxOCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjYmcxKSIvPgogIAogIDwhLS0g7J6l7IudIOygkOuTpCAtLT4KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyIiBmaWxsPSIjYzk4YTRiIiBvcGFjaXR5PSIuNSIvPgogIDxjaXJjbGUgY3g9IjE3MCIgY3k9IjQwIiByPSIyLjUiIGZpbGw9IiNjOThhNGIiIG9wYWNpdHk9Ii40Ii8+CiAgPGNpcmNsZSBjeD0iMjAiIGN5PSIxNjAiIHI9IjIiIGZpbGw9IiNmYmY4ZjEiIG9wYWNpdHk9Ii4zIi8+CiAgPGNpcmNsZSBjeD0iMTgwIiBjeT0iMTcwIiByPSIzIiBmaWxsPSIjYzk4YTRiIiBvcGFjaXR5PSIuNSIvPgogIAogIDwhLS0g7Ja06rmoIC0tPgogIDxwYXRoIGQ9Ik0gNTAgMjAwIFEgNTAgMTUwIDEwMCAxNDUgUSAxNTAgMTUwIDE1MCAyMDAgWiIgZmlsbD0iI2ZiZjhmMSIvPgogIDxwYXRoIGQ9Ik0gNjAgMjAwIFEgNjAgMTY1IDEwMCAxNjIgUSAxNDAgMTY1IDE0MCAyMDAgWiIgZmlsbD0iI2U4ZTBjOCIvPgogIAogIDwhLS0g66qpIC0tPgogIDxyZWN0IHg9IjkwIiB5PSIxMjUiIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMiIgZmlsbD0iI2Y0ZDRhOCIvPgogIAogIDwhLS0g7Ja86rW0IC0tPgogIDxlbGxpcHNlIGN4PSIxMDAiIGN5PSIxMDAiIHJ4PSIzMiIgcnk9IjM4IiBmaWxsPSIjZjRkNGE4Ii8+CiAgCiAgPCEtLSDrqLjrpqzsubTrnb0gKOuLqOuwnCkgLS0+CiAgPHBhdGggZD0iTSA2OCAxMDAgUSA2NSA2MCAxMDAgNTUgUSAxMzUgNjAgMTMyIDEwMCBRIDEzMiA3NSAxMDAgNzAgUSA3MCA3NSA2OCAxMDAgWiIgZmlsbD0idXJsKCNoYWlyMSkiLz4KICA8cGF0aCBkPSJNIDY4IDk1IFEgNjggMTMwIDc4IDEzNSBMIDc1IDExMCBaIiBmaWxsPSJ1cmwoI2hhaXIxKSIvPgogIDxwYXRoIGQ9Ik0gMTMyIDk1IFEgMTMyIDEzMCAxMjIgMTM1IEwgMTI1IDExMCBaIiBmaWxsPSJ1cmwoI2hhaXIxKSIvPgogIDwhLS0g7JWe66i466asIC0tPgogIDxwYXRoIGQ9Ik0gNzggNzggUSA5MCA2NSAxMDUgNzIgUSAxMTUgNzAgMTIyIDgwIEwgMTIyIDkwIFEgMTAwIDc4IDc4IDg4IFoiIGZpbGw9InVybCgjaGFpcjEpIi8+CiAgCiAgPCEtLSDriIggLS0+CiAgPGVsbGlwc2UgY3g9Ijg4IiBjeT0iMTAzIiByeD0iMi41IiByeT0iMyIgZmlsbD0iIzFkMmEyNSIvPgogIDxlbGxpcHNlIGN4PSIxMTIiIGN5PSIxMDMiIHJ4PSIyLjUiIHJ5PSIzIiBmaWxsPSIjMWQyYTI1Ii8+CiAgPCEtLSDriIjsjbkgLS0+CiAgPHBhdGggZD0iTSA4MiA5NSBRIDg4IDkzIDk0IDk1IiBzdHJva2U9IiMyYzE4MTAiIHN0cm9rZS13aWR0aD0iMS44IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNIDEwNiA5NSBRIDExMiA5MyAxMTggOTUiIHN0cm9rZT0iIzJjMTgxMCIgc3Ryb2tlLXdpZHRoPSIxLjgiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIAogIDwhLS0g7L2UIC0tPgogIDxwYXRoIGQ9Ik0gMTAwIDEwOCBMIDk4IDExNiBRIDEwMCAxMTggMTAyIDExNiBaIiBmaWxsPSIjZThiODg4IiBvcGFjaXR5PSIuNiIvPgogIAogIDwhLS0g7J6FICjsmIXsnYAg66+47IaMKSAtLT4KICA8cGF0aCBkPSJNIDkzIDEyMiBRIDEwMCAxMjYgMTA3IDEyMiIgc3Ryb2tlPSIjYzQ3ODc4IiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIAogIDwhLS0g6reAIC0tPgogIDxlbGxpcHNlIGN4PSI3MCIgY3k9IjEwMiIgcng9IjMiIHJ5PSI1IiBmaWxsPSIjZjRkNGE4Ii8+CiAgPGVsbGlwc2UgY3g9IjEzMCIgY3k9IjEwMiIgcng9IjMiIHJ5PSI1IiBmaWxsPSIjZjRkNGE4Ii8+CiAgCiAgPCEtLSDssYUv66y47IScICjsmKTrpbjsqr0g7JWE656YKSAtLT4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjUsMTcwKSByb3RhdGUoLTEwKSI+CiAgICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iNDAiIGhlaWdodD0iMjgiIGZpbGw9IiNmYmY4ZjEiIHN0cm9rZT0iI2M5OGE0YiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHJ4PSIyIi8+CiAgICA8bGluZSB4MT0iNSIgeTE9IjciIHgyPSIzNSIgeTI9IjciIHN0cm9rZT0iIzFmNGQzZiIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgICA8bGluZSB4MT0iNSIgeTE9IjEzIiB4Mj0iMzIiIHkyPSIxMyIgc3Ryb2tlPSIjMWY0ZDNmIiBzdHJva2Utd2lkdGg9IjEiLz4KICAgIDxsaW5lIHgxPSI1IiB5MT0iMTkiIHgyPSIzMCIgeTI9IjE5IiBzdHJva2U9IiMxZjRkM2YiIHN0cm9rZS13aWR0aD0iMSIvPgogIDwvZz4KPC9zdmc+" alt="박지영 페르소나"/></div>
             <div class="info">
               <div class="name">박지영, 32세</div>
               <div class="role">중견기업 HRD팀 교수설계자 · 경력 5년</div>
@@ -2621,7 +2907,7 @@
 
         <div class="persona-card">
           <div class="persona-head">
-            <div class="persona-avatar">김</div>
+            <div class="persona-avatar"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYmcyIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzNhNGE0NCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxZDJhMjUiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImhhaXIyIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMxYTE0MTAiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMmMxODEwIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0idXJsKCNiZzIpIi8+CiAgCiAgPCEtLSDsnqXsi50gLS0+CiAgPGNpcmNsZSBjeD0iMjUiIGN5PSI0MCIgcj0iMi41IiBmaWxsPSIjYzk4YTRiIiBvcGFjaXR5PSIuNCIvPgogIDxjaXJjbGUgY3g9IjE3NSIgY3k9IjMwIiByPSIyIiBmaWxsPSIjZmJmOGYxIiBvcGFjaXR5PSIuMyIvPgogIDxjaXJjbGUgY3g9IjE3NSIgY3k9IjE2NSIgcj0iMi41IiBmaWxsPSIjYzk4YTRiIiBvcGFjaXR5PSIuNSIvPgogIAogIDwhLS0g7KCV7J6lIOyWtOq5qCAo64Sk7J2067mEKSAtLT4KICA8cGF0aCBkPSJNIDQ1IDIwMCBRIDQ1IDE0NSAxMDAgMTQyIFEgMTU1IDE0NSAxNTUgMjAwIFoiIGZpbGw9IiMxYTJiM2EiLz4KICA8IS0tIOyFlOy4oCDsubzrnbwgLS0+CiAgPHBhdGggZD0iTSA4OCAxNTAgTCAxMDAgMTY1IEwgMTEyIDE1MCBMIDEwMCAxNDUgWiIgZmlsbD0iI2ZiZjhmMSIvPgogIDwhLS0g64Sl7YOA7J20ICjslrTrkZDsmrQg7Lm066mcKSAtLT4KICA8cGF0aCBkPSJNIDk1IDE1NSBMIDEwNSAxNTUgTCAxMDcgMjAwIEwgOTMgMjAwIFoiIGZpbGw9IiM4YTVhMmUiLz4KICA8cGF0aCBkPSJNIDk2IDE1OCBMIDEwNCAxNTggTCAxMDIgMTY4IEwgOTggMTY4IFoiIGZpbGw9IiM2YjNmMWEiLz4KICAKICA8IS0tIOuqqSAtLT4KICA8cmVjdCB4PSI5MiIgeT0iMTIyIiB3aWR0aD0iMTYiIGhlaWdodD0iMjUiIGZpbGw9IiNlOGI4ODgiLz4KICAKICA8IS0tIOyWvOq1tCAo6rCB7KeEIO2Yle2DnCkgLS0+CiAgPHBhdGggZD0iTSA2OCA5NSBRIDY4IDY1IDEwMCA2MCBRIDEzMiA2NSAxMzIgOTUgUSAxMzIgMTMwIDEwMCAxMzggUSA2OCAxMzAgNjggOTUgWiIgZmlsbD0iI2U4Yjg4OCIvPgogIAogIDwhLS0g66i466as7Lm06529ICjsp6fsnYAg67mE7KaI64uI7Iqk7Lu3LCDsmIbrqLjrpqwg7IK07KedIO2ajOyDiSkgLS0+CiAgPHBhdGggZD0iTSA2OCA4NSBRIDY4IDU1IDEwMCA1MiBRIDEzMiA1NSAxMzIgODUgUSAxMzIgNzAgMTAwIDY4IFEgNjggNzAgNjggODUgWiIgZmlsbD0idXJsKCNoYWlyMikiLz4KICA8IS0tIOyYhuuouOumrCDtmozsg4kg6rCV7KGwIC0tPgogIDxwYXRoIGQ9Ik0gNjggODAgUSA2OCA5NSA3MiAxMDAgTCA3MCA3NSBaIiBmaWxsPSIjNmI2MjU4Ii8+CiAgPHBhdGggZD0iTSAxMzIgODAgUSAxMzIgOTUgMTI4IDEwMCBMIDEzMCA3NSBaIiBmaWxsPSIjNmI2MjU4Ii8+CiAgCiAgPCEtLSDriIggLS0+CiAgPGVsbGlwc2UgY3g9Ijg3IiBjeT0iOTgiIHJ4PSIyLjUiIHJ5PSIyLjgiIGZpbGw9IiMxZDJhMjUiLz4KICA8ZWxsaXBzZSBjeD0iMTEzIiBjeT0iOTgiIHJ4PSIyLjUiIHJ5PSIyLjgiIGZpbGw9IiMxZDJhMjUiLz4KICA8IS0tIOuIiOyNuSAo7KeE7ZWY6rOgIOyngeyEoOyggSkgLS0+CiAgPHBhdGggZD0iTSA4MCA4OSBMIDk0IDg4IiBzdHJva2U9IiMxYTE0MTAiIHN0cm9rZS13aWR0aD0iMi41IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNIDEwNiA4OCBMIDEyMCA4OSIgc3Ryb2tlPSIjMWExNDEwIiBzdHJva2Utd2lkdGg9IjIuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgCiAgPCEtLSDslYjqsr0gLS0+CiAgPGNpcmNsZSBjeD0iODciIGN5PSIxMDAiIHI9IjEwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxZDJhMjUiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPGNpcmNsZSBjeD0iMTEzIiBjeT0iMTAwIiByPSIxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMWQyYTI1IiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxsaW5lIHgxPSI5NyIgeTE9IjEwMCIgeDI9IjEwMyIgeTI9IjEwMCIgc3Ryb2tlPSIjMWQyYTI1IiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIAogIDwhLS0g7L2UIC0tPgogIDxwYXRoIGQ9Ik0gMTAwIDEwOCBMIDk4IDExNyBRIDEwMCAxMTkgMTAyIDExNyBaIiBmaWxsPSIjYzg5ODY4IiBvcGFjaXR5PSIuNiIvPgogIAogIDwhLS0g7J6FICjssKjrtoTtlZwg7ZGc7KCVKSAtLT4KICA8bGluZSB4MT0iOTMiIHkxPSIxMjUiIHgyPSIxMDciIHkyPSIxMjUiIHN0cm9rZT0iIzhhNGE0YSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAKICA8IS0tIOq3gCAtLT4KICA8ZWxsaXBzZSBjeD0iNzAiIGN5PSIxMDAiIHJ4PSIzIiByeT0iNSIgZmlsbD0iI2U4Yjg4OCIvPgogIDxlbGxpcHNlIGN4PSIxMzAiIGN5PSIxMDAiIHJ4PSIzIiByeT0iNSIgZmlsbD0iI2U4Yjg4OCIvPgogIAogIDwhLS0g7LCo7Yq4IOyVhOydtOy9mCAo7Jik66W47Kq9IOychCkgLS0+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTU1LDMwKSI+CiAgICA8cmVjdCB4PSIwIiB5PSIxMCIgd2lkdGg9IjYiIGhlaWdodD0iMTUiIGZpbGw9IiNjOThhNGIiIG9wYWNpdHk9Ii44Ii8+CiAgICA8cmVjdCB4PSI5IiB5PSI1IiB3aWR0aD0iNiIgaGVpZ2h0PSIyMCIgZmlsbD0iI2M5OGE0YiIgb3BhY2l0eT0iLjgiLz4KICAgIDxyZWN0IHg9IjE4IiB5PSIwIiB3aWR0aD0iNiIgaGVpZ2h0PSIyNSIgZmlsbD0iI2M5OGE0YiIgb3BhY2l0eT0iLjkiLz4KICA8L2c+Cjwvc3ZnPg==" alt="김태훈 페르소나"/></div>
             <div class="info">
               <div class="name">김태훈, 41세</div>
               <div class="role">교육 컨설팅 회사 시니어 컨설턴트 · 경력 12년</div>
@@ -2662,7 +2948,7 @@
 
         <div class="persona-card">
           <div class="persona-head">
-            <div class="persona-avatar">정</div>
+            <div class="persona-avatar"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYmczIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Q5YTE2YiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNhMDY4MzIiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImhhaXIzIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM0YTI4MTgiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNWEzYTIwIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0idXJsKCNiZzMpIi8+CiAgCiAgPCEtLSDsnqXsi50gLS0+CiAgPGNpcmNsZSBjeD0iMzAiIGN5PSIzNSIgcj0iMyIgZmlsbD0iI2ZiZjhmMSIgb3BhY2l0eT0iLjQiLz4KICA8Y2lyY2xlIGN4PSIxNzAiIGN5PSI0NSIgcj0iMiIgZmlsbD0iIzFmNGQzZiIgb3BhY2l0eT0iLjMiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjE3MCIgcj0iMi41IiBmaWxsPSIjZmJmOGYxIiBvcGFjaXR5PSIuNCIvPgogIAogIDwhLS0g7Ja06rmoICjsupDso7zslrztlZwg7ZuE65OcL+2LsCkgLS0+CiAgPHBhdGggZD0iTSA0OCAyMDAgUSA0OCAxNDggMTAwIDE0NCBRIDE1MiAxNDggMTUyIDIwMCBaIiBmaWxsPSIjMWY0ZDNmIi8+CiAgPCEtLSDrnbzsmrTrk5wg64SlIC0tPgogIDxwYXRoIGQ9Ik0gODUgMTQ4IFEgMTAwIDE1NSAxMTUgMTQ4IFEgMTEwIDE1OCAxMDAgMTYyIFEgOTAgMTU4IDg1IDE0OCBaIiBmaWxsPSIjMGYyYTIyIi8+CiAgCiAgPCEtLSDrqqkgLS0+CiAgPHJlY3QgeD0iOTIiIHk9IjEyNCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjI0IiBmaWxsPSIjZjRkNGE4Ii8+CiAgCiAgPCEtLSDslrzqtbQgKOuRpeq3vCkgLS0+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjEwMCIgcng9IjMzIiByeT0iMzYiIGZpbGw9IiNmNGQ0YTgiLz4KICAKICA8IS0tIOuouOumrOy5tOudvSAo7Y+s64uI7YWM7J28IOyKpO2DgOydvCwg7JiG7J2AIO2SgOyWtOuRoCkgLS0+CiAgPHBhdGggZD0iTSA2NSAxMDAgUSA2MCA1NSAxMDAgNTAgUSAxNDAgNTUgMTM1IDEwMCBRIDEzNSA3MiAxMDAgNjggUSA2NSA3MiA2NSAxMDAgWiIgZmlsbD0idXJsKCNoYWlyMykiLz4KICA8cGF0aCBkPSJNIDY1IDk1IFEgNjUgMTIwIDcwIDEzMCBMIDY4IDEwNSBaIiBmaWxsPSJ1cmwoI2hhaXIzKSIvPgogIDxwYXRoIGQ9Ik0gMTM1IDk1IFEgMTM1IDEyMCAxMzAgMTMwIEwgMTMyIDEwNSBaIiBmaWxsPSJ1cmwoI2hhaXIzKSIvPgogIDwhLS0g7JWe66i466asICjsgqzsnbTrk5wg7Iqk7JyVKSAtLT4KICA8cGF0aCBkPSJNIDc1IDc1IFEgOTUgNjUgMTE1IDcyIFEgMTI1IDc1IDEyOCA4OCBRIDEwNSA3OCA3NSA4NSBaIiBmaWxsPSJ1cmwoI2hhaXIzKSIvPgogIAogIDwhLS0g7Y+s64uI7YWM7J28ICjrkqTroZwg66y27J2MKSAtLT4KICA8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iNTUiIHJ4PSIxNCIgcnk9IjgiIGZpbGw9IiM1YTNhMjAiIG9wYWNpdHk9Ii42Ii8+CiAgCiAgPCEtLSDriIggKO2BsCDriIgsIOuwneydgCDtkZzsoJUpIC0tPgogIDxlbGxpcHNlIGN4PSI4NyIgY3k9IjEwMyIgcng9IjMiIHJ5PSIzLjUiIGZpbGw9IiMxZDJhMjUiLz4KICA8ZWxsaXBzZSBjeD0iMTEzIiBjeT0iMTAzIiByeD0iMyIgcnk9IjMuNSIgZmlsbD0iIzFkMmEyNSIvPgogIDwhLS0g64iIIO2VmOydtOudvOydtO2KuCAtLT4KICA8Y2lyY2xlIGN4PSI4OCIgY3k9IjEwMiIgcj0iMC44IiBmaWxsPSIjZmJmOGYxIi8+CiAgPGNpcmNsZSBjeD0iMTE0IiBjeT0iMTAyIiByPSIwLjgiIGZpbGw9IiNmYmY4ZjEiLz4KICA8IS0tIOuIiOyNuSAo7IK07KedIOuRpeq3vCkgLS0+CiAgPHBhdGggZD0iTSA4MCA5NCBRIDg3IDkxIDk0IDk0IiBzdHJva2U9IiM0YTI4MTgiIHN0cm9rZS13aWR0aD0iMS44IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNIDEwNiA5NCBRIDExMyA5MSAxMjAgOTQiIHN0cm9rZT0iIzRhMjgxOCIgc3Ryb2tlLXdpZHRoPSIxLjgiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIAogIDwhLS0g67O87YSw7LmYICjtmY3sobApIC0tPgogIDxlbGxpcHNlIGN4PSI3OCIgY3k9IjExNSIgcng9IjUiIHJ5PSIzIiBmaWxsPSIjZmY5OTk5IiBvcGFjaXR5PSIuMzUiLz4KICA8ZWxsaXBzZSBjeD0iMTIyIiBjeT0iMTE1IiByeD0iNSIgcnk9IjMiIGZpbGw9IiNmZjk5OTkiIG9wYWNpdHk9Ii4zNSIvPgogIAogIDwhLS0g7L2UIC0tPgogIDxwYXRoIGQ9Ik0gMTAwIDExMCBMIDk4IDExNyBRIDEwMCAxMTkgMTAyIDExNyBaIiBmaWxsPSIjZThiODg4IiBvcGFjaXR5PSIuNiIvPgogIAogIDwhLS0g7J6FICjrsJ3snYAg66+47IaMKSAtLT4KICA8cGF0aCBkPSJNIDkwIDEyNCBRIDEwMCAxMzIgMTEwIDEyNCIgc3Ryb2tlPSIjYzQ3ODc4IiBzdHJva2Utd2lkdGg9IjIuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTSA5MiAxMjUgUSAxMDAgMTMwIDEwOCAxMjUgWiIgZmlsbD0iI2ZmOTk5OSIgb3BhY2l0eT0iLjUiLz4KICAKICA8IS0tIOq3gCAtLT4KICA8ZWxsaXBzZSBjeD0iNjgiIGN5PSIxMDIiIHJ4PSIzIiByeT0iNSIgZmlsbD0iI2Y0ZDRhOCIvPgogIDxlbGxpcHNlIGN4PSIxMzIiIGN5PSIxMDIiIHJ4PSIzIiByeT0iNSIgZmlsbD0iI2Y0ZDRhOCIvPgogIAogIDwhLS0g7LK07YGs66as7Iqk7Yq4IOyVhOydtOy9mCAtLT4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNSwxNjUpIj4KICAgIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIzMCIgaGVpZ2h0PSIyMiIgZmlsbD0iI2ZiZjhmMSIgc3Ryb2tlPSIjMWY0ZDNmIiBzdHJva2Utd2lkdGg9IjEuMiIgcng9IjIiLz4KICAgIDxwYXRoIGQ9Ik0gNCA2IEwgNiA4IEwgMTAgNCIgc3Ryb2tlPSIjMWY0ZDNmIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgICA8bGluZSB4MT0iMTMiIHkxPSI2IiB4Mj0iMjYiIHkyPSI2IiBzdHJva2U9IiM0YTVhNTIiIHN0cm9rZS13aWR0aD0iMSIvPgogICAgPHBhdGggZD0iTSA0IDEzIEwgNiAxNSBMIDEwIDExIiBzdHJva2U9IiMxZjRkM2YiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICAgIDxsaW5lIHgxPSIxMyIgeTE9IjEzIiB4Mj0iMjYiIHkyPSIxMyIgc3Ryb2tlPSIjNGE1YTUyIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8L2c+Cjwvc3ZnPg==" alt="정유나 페르소나"/></div>
             <div class="info">
               <div class="name">정유나, 28세</div>
               <div class="role">에듀테크 스타트업 운영관리자 · 경력 2년</div>
