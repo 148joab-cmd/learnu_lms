@@ -196,6 +196,7 @@ python -m http.server 8000
 
 포트폴리오에 대한 피드백, 협업 제안 환영합니다.
 
+"관리자 데모: admin@lumen.edu / admin1234"
 - ✉️ Email: [your-email@example.com]
 - 💼 LinkedIn: [your-linkedin]
 - 📝 Brunch: [your-brunch]
