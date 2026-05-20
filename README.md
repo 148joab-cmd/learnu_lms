@@ -1,2 +1,0 @@
-# learnu_lms
-LMS
